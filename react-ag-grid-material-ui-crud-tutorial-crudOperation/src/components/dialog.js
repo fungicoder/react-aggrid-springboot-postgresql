@@ -12,7 +12,7 @@ export default function FormDialog({
   open,
   handleClose,
   data,
-  onChange,
+  onChange = "",
   handleFormSubmit,
 }) {
   const { user_id, fullName, email, phone, dob } = data;

@@ -18,7 +18,7 @@ function App(message) {
     const [open, setOpen] = React.useState(false);
     const [formData, setFormData] = useState(initialValue);
 
-    // add user button onClick event
+    // add user button popup form onClick event
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -29,12 +29,6 @@ function App(message) {
         setFormData(initialValue);
     };
 
-    // // get data connection
-    // const url = UserDataService.getAll()
-    //     .then(response => {
-    //         setTableData(response.data)
-    //     });
-
     const columnDefs = [
         {headerName: "ID", field: "user_id"},
         {headerName: "Name", field: "fullName"},
@@ -44,7 +38,7 @@ function App(message) {
         {
             headerName: "Actions",
             field: "user_id",
-            cellRendererFramework: (params) => (
+            cellRendererFramework: (params) =>
 
                 <div>
                     <Button
@@ -63,8 +57,8 @@ function App(message) {
                         Delete
                     </Button>
                 </div>
-            ),
-        },
+
+        }
     ];
 
 
@@ -77,24 +71,12 @@ function App(message) {
     const getUsers = () => {
         UserDataService.getAll()
             .then((response) => {
-                setTableData(response.data)
                 console.log(response.data)
+                setTableData(response.data)
             })
     };
 
-    // onChange event in dialog form
-    const onChange = (e) => {
-        const {value, user_id} = e.target;
-        // console.log(value,id)
-        setFormData({...formData, [user_id]: value});
-    };
-
-    // render grit when data exist
-    const onGridReady = (params) => {
-        setGridApi(params);
-    };
-
-    // setting update row data to form data and opening pop up window
+    // updating data and opening pop up window
     const handleUpdate = (oldData) => {
         setFormData(oldData);
         handleClickOpen();
@@ -115,16 +97,35 @@ function App(message) {
         }
     };
 
-    const handleFormSubmit = () => {
-        if (formData) {
+    // onChange event in dialog form
+    const onChange = (e) => {
+        const {value = '', id} = e.target;
+        setFormData({...formData, [id]: value});
+        console.log(value,id)
+    };
 
-            //updating a user
+    // render grit when data exist
+    const onGridReady = (params) => {
+        setGridApi(params);
+    };
+
+
+
+
+    const handleFormSubmit = () => {
+        if (formData.id) {
+
+
+
+            // Alert message
             const confirm = window.confirm(
                 "Are you sure, you want to update this row ?"
             );
-            confirm &&
-            UserDataService.update(formData)
-                .then((r) => {
+
+            //  updating a user
+            confirm && UserDataService.update(formData.id)
+                .then((r) => r.data)
+                .then(r => {
                     setFormData(r.data)
                     handleClose();
                     getUsers()

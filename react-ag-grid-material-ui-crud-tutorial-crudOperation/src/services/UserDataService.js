@@ -5,20 +5,20 @@ class UserDataService {
         return http.get("/users");
     }
 
-    get(user_id) {
-        return http.get(`/users/${user_id}`);
+    get(id) {
+        return http.get(`/users/${id}`);
     }
 
     create(data) {
         return http.post("/users", data);
     }
 
-    update(user_id, data) {
-        return http.put(`/users/${user_id}`, data);
+    update(id, data) {
+        return http.put(`/users/${id}`, data);
     }
 
-    delete(user_id) {
-        return http.delete(`/users/${user_id}`);
+    delete(id) {
+        return http.delete(`/users/${id}`);
     }
 
     deleteAll() {
