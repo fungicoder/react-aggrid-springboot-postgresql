@@ -36,10 +36,8 @@ function App(message) {
         {headerName: "phone", field: "phone"},
         {headerName: "Date of Birth", field: "dob"},
         {
-            headerName: "Actions",
-            field: "user_id",
+            headerName: "Actions", field: "user_id",
             cellRendererFramework: (params) =>
-
                 <div>
                     <Button
                         variant="outlined"
@@ -84,37 +82,23 @@ function App(message) {
 
     //deleting a user
     const handleDelete = (id) => {
+        console.log('print id:', id)
+        // delete confirmation message
         const confirmation = window.confirm(
             "Are you sure, you want to delete this row",
             id
-        );
+        )
 
         if (confirmation) {
-            UserDataService.delete(tableData.id).then((r) => r.data).then((r) => {
+            UserDataService.delete(id).then((r) => r.data).then((r) => {
                 handleClose();
                 getUsers();
             })
         }
     };
 
-    // onChange event in dialog form
-    const onChange = (e) => {
-        const {value = '', id} = e.target;
-        setFormData({...formData, [id]: value});
-        console.log(value,id)
-    };
-
-    // render grit when data exist
-    const onGridReady = (params) => {
-        setGridApi(params);
-    };
-
-
-
-
     const handleFormSubmit = () => {
         if (formData.id) {
-
 
 
             // Alert message
@@ -146,7 +130,7 @@ function App(message) {
 
             // adding new user
             UserDataService.create(formData).then((r) => r.data).then((r) => {
-                setFormData(r.data)
+                //setFormData(r.data)
                 handleClose();
                 getUsers()
             })
@@ -165,6 +149,21 @@ function App(message) {
             //     });
         }
     };
+
+    // onChange event in dialog form
+    const onChange = (e) => {
+        const {value = '', id} = e.target;
+        setFormData({...formData, [id]: value});
+        console.log(value, id)
+    };
+
+    // render grit when data exist
+    const onGridReady = (params) => {
+        setGridApi(params);
+    };
+
+
+
 
     const defaultColDef = {
         sortable: true,

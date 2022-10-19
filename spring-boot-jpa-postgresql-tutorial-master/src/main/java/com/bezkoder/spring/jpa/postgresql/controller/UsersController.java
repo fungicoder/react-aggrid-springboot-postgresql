@@ -27,27 +27,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
 
     @Autowired
-    UserRepository userRepository;
-
-//    public UsersController(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-
-
-//    public UsersController(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
+    private UserRepository userRepository;
 
     //	getting all users
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String fullName) {
         try {
-            List<User> users = new ArrayList<>();
+            List<User> users = new ArrayList<User>();
 
             if (fullName == null)
-                userRepository.findAll().forEach(users::add);
+                users.addAll(userRepository.findAll());
+
             else
-                userRepository.findByFullNameContaining(fullName).forEach(users::add);
+            users.addAll(userRepository.findByFullNameContaining(fullName));
 
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -64,11 +56,7 @@ public class UsersController {
     public ResponseEntity<User> getUsersById(@PathVariable("id") long id) {
         Optional<User> userData = userRepository.findById(id);
 
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return userData.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     //	Create User
@@ -76,7 +64,7 @@ public class UsersController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             User _user = userRepository
-                    .save(new User(user.getFullName(), user.getEmail(), user.getPhone(), user.getDob()));
+                    .save(user);
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -105,7 +93,7 @@ public class UsersController {
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
         try {
             userRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
