@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SpringBootJpaPostgresqlApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="start-FE" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
     <module name="backend" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.bezkoder.spring.jpa.postgresql.SpringBootJpaPostgresqlApplication" />
