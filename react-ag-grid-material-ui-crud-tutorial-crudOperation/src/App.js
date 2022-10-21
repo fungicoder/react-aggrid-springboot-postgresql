@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./App.css";
 import {AgGridReact} from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import "ag-grid-community/dist/styles/ag-theme-material.min.css";
 import {Grid, Button} from "@material-ui/core";
 import FormDialog from "./components/dialog";
 import UserDataService from "../src/services/UserDataService";
@@ -176,7 +176,7 @@ function App(message) {
 
         <div className="App">
 
-            <h1 align="center">React-App</h1>
+            <h1 align="center">for-devs.com</h1>
             <h3>CRUD Operation with PostgreSQL in ag-Grid</h3>
 
             {/* Material UI Grid Layout */}
@@ -186,7 +186,7 @@ function App(message) {
                 </Button>
             </Grid>
 
-            <div className="ag-theme-alpine" style={{height: "400px"}}>
+            <div className="ag-theme-material" style={{height: "400px"}}>
                 <AgGridReact
                     rowData={tableData}
                     columnDefs={columnDefs}
