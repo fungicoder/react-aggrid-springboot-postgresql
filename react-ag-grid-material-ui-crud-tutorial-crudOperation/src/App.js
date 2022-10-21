@@ -13,6 +13,7 @@ const initialValue = {fullName: "", email: "", phone: "", dob: ""};
 
 // Main Funciton
 function App(message) {
+    // eslint-disable-next-line
     const [gridApi, setGridApi] = useState(null);
     const [tableData, setTableData] = useState(null);
     const [open, setOpen] = React.useState(false);
