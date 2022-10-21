@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="install" type="js.build_tools.npm" nameIsGenerated="true">
-    <package-json value="$PROJECT_DIR$/react-ag-grid-material-ui-crud-tutorial-crudOperation/package.json" />
+    <package-json value="$PROJECT_DIR$/frontend/package.json" />
     <command value="install" />
     <node-interpreter value="project" />
     <envs />
