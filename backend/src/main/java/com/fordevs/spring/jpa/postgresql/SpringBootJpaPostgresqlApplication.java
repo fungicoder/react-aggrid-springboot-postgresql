@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jpa.postgresql;
+package com.fordevs.spring.jpa.postgresql;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

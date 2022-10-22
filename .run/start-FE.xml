@@ -2,7 +2,7 @@
   <configuration default="false" name="start-FE" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
     <module name="backend" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.bezkoder.spring.jpa.postgresql.SpringBootJpaPostgresqlApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="SpringBootJpaPostgresqlApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

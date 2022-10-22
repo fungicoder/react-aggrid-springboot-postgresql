@@ -178,12 +178,13 @@ function App(message) {
         <div className="App">
 
             <h1 align="center">for-devs.com</h1>
-            <h3>CRUD Operation with PostgreSQL in ag-Grid</h3>
+            <h2>Application Technologies:</h2>
+            <h3>React, AgGrid, Material UI, Spring Boot, Data JPA, PostgresSQL,And Maven Example Application</h3>
 
             {/* Material UI Grid Layout */}
             <Grid align="right">
                 <Button variant="contained" color="primary" onClick={handleClickOpen}>
-                    Add user
+                    Create User
                 </Button>
             </Grid>
 
