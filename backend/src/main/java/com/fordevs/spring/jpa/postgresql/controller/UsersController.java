@@ -1,11 +1,11 @@
-package com.bezkoder.spring.jpa.postgresql.controller;
+package com.fordevs.spring.jpa.postgresql.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bezkoder.spring.jpa.postgresql.model.User;
-import com.bezkoder.spring.jpa.postgresql.repository.UserRepository;
+import com.fordevs.spring.jpa.postgresql.model.User;
+import com.fordevs.spring.jpa.postgresql.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
