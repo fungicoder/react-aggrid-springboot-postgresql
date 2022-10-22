@@ -8,7 +8,7 @@
         <version>2.7.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bezkoder</groupId>
+    <groupId>com.fordevs</groupId>
     <artifactId>spring-boot-jpa-postgresql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-jpa-postgresql</name>
