@@ -178,8 +178,7 @@ function App(message) {
         <div className="App">
 
             <h1 align="center">for-devs.com</h1>
-            <h2>Application Technologies:</h2>
-            <h3>React, AgGrid, Material UI, Spring Boot, Data JPA, PostgresSQL,And Maven Example Application</h3>
+            <h2>React, AgGrid, Material UI, Spring Boot, Data JPA, PostgresSQL,And Maven Example Application</h2>
 
             {/* Material UI Grid Layout */}
             <Grid align="right">
