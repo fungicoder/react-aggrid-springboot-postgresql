@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.fordevs.spring.jpa.postgresql.model.User;
-import com.fordevs.spring.jpa.postgresql.repository.UserRepository;
+import com.fordevs.spring.jpa.postgresql.model.Department;
+import com.fordevs.spring.jpa.postgresql.model.Student;
+import com.fordevs.spring.jpa.postgresql.repository.DepartmentRepository;
+import com.fordevs.spring.jpa.postgresql.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,28 +26,30 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
-public class UsersController {
+public class StudentsController {
 
     @Autowired
-    private UserRepository userRepository;
+    private StudentRepository studentRepository;
+
+
 
     //	getting all users
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String fullName) {
+    public ResponseEntity<List<Student>> getAllUsers(@RequestParam(required = false) String fullName) {
         try {
-            List<User> users = new ArrayList<User>();
+            List<Student> students = new ArrayList<Student>();
 
             if (fullName == null)
-                users.addAll(userRepository.findAll());
+                students.addAll(studentRepository.findAll());
 
             else
-            users.addAll(userRepository.findByFullNameContaining(fullName));
+            students.addAll(studentRepository.findByFullNameContaining(fullName));
 
-            if (users.isEmpty()) {
+            if (students.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(users, HttpStatus.OK);
+            return new ResponseEntity<>(students, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -53,57 +57,57 @@ public class UsersController {
 
     //	getting users by id
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUsersById(@PathVariable("id") long id) {
-        Optional<User> userData = userRepository.findById(id);
+    public ResponseEntity<Student> getUsersById(@PathVariable("id") long id) {
+        Optional<Student> userData = studentRepository.findById(id);
 
-        return userData.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return userData.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    //	Create User
+    //	Create Student
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<Student> createUser(@RequestBody Student student) {
         try {
-            User _user = userRepository
-                    .save(user);
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            Student _student = studentRepository
+                    .save(student);
+            return new ResponseEntity<>(_student, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    //	Update User
+    //	Update Student
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        Optional<User> userData = userRepository.findById(id);
+    public ResponseEntity<Student> updateUser(@PathVariable("id") long id, @RequestBody Student student) {
+        Optional<Student> userData = studentRepository.findById(id);
 
         if (userData.isPresent()) {
-            User _user = userData.get();
-            _user.setFullName(user.getFullName());
-            _user.setEmail(user.getEmail());
-            _user.setPhone(user.getPhone());
-            _user.setDob(user.getDob());
-            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+            Student _student = userData.get();
+            _student.setFullName(student.getFullName());
+            _student.setEmail(student.getEmail());
+            _student.setPhone(student.getPhone());
+            _student.setDob(student.getDob());
+            return new ResponseEntity<>(studentRepository.save(_student), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // Delete User
+    // Delete Student
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
         try {
-            userRepository.deleteById(id);
+            studentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // Delete All User
+    // Delete All Student
     @DeleteMapping("/users")
     public ResponseEntity<HttpStatus> deleteAllUsers() {
         try {
-            userRepository.deleteAll();
+            studentRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
