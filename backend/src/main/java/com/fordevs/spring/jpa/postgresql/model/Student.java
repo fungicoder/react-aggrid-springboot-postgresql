@@ -5,16 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// @SecondaryTable(name = "departments", pkJoinColumns = @PrimaryKeyJoinColumn(name = "department_id"))
 @Entity
-@Table(name = "users")
+@Table(name = "students")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Student {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long user_id;
+	private Long student_id;
 
 	@Column(name = "full_name")
 	private String fullName;
@@ -28,3 +29,4 @@ public class User {
 	@Column(name = "dob")
 	private String dob;
 }
+
