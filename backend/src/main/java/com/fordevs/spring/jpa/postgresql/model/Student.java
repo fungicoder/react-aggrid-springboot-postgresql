@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// @SecondaryTable(name = "departments", pkJoinColumns = @PrimaryKeyJoinColumn(name = "department_id"))
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "students")
 @Data
@@ -14,7 +16,8 @@ import lombok.NoArgsConstructor;
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
 	private Long student_id;
 
 	@Column(name = "full_name")
@@ -28,5 +31,22 @@ public class Student {
 
 	@Column(name = "dob")
 	private String dob;
+
+    @Column(name = "dept_id")
+    private Long dept_id;
+
+    private Long subject_learning_id;
+
+	@Column(name = "is_active")
+	private Boolean isActive;
+
+	// Relations
+	@ManyToOne
+	@JoinColumn(name = "dept_id", insertable = false, updatable = false)
+	private  Department department;
+
+	@ManyToMany // (mappedBy = "students" )
+	@JoinColumn(name = "subject_learning_id")
+	private List<SubjectLearning> subjectLearning = new ArrayList<>();
 }
 

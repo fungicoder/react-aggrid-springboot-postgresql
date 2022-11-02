@@ -2,7 +2,6 @@ package com.fordevs.spring.jpa.postgresql.controller;
 
 import com.fordevs.spring.jpa.postgresql.model.Student;
 import com.fordevs.spring.jpa.postgresql.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +16,16 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class StudentsController {
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
+    public StudentsController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
 
     //	getting all users
-    @GetMapping("/users")
-    public ResponseEntity<List<Student>> getAllUsers(@RequestParam(required = false) String fullName) {
+    @GetMapping("/students")
+    public ResponseEntity<List<Student>> getAllStudents(@RequestParam(required = false) String fullName) {
         try {
             List<Student> students = new ArrayList<>();
 
@@ -45,16 +46,16 @@ public class StudentsController {
     }
 
     //	getting users by id
-    @GetMapping("/users/{id}")
-    public ResponseEntity<Student> getUsersById(@PathVariable("id") long id) {
-        Optional<Student> userData = studentRepository.findById(id);
+    @GetMapping("/students/{id}")
+    public ResponseEntity<Student> getStudentsById(@PathVariable("id") long id) {
+        Optional<Student> studentsData = studentRepository.findById(id);
 
-        return userData.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return studentsData.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     //	Create Student
-    @PostMapping("/users")
-    public ResponseEntity<Student> createUser(@RequestBody Student student) {
+    @PostMapping("/students")
+    public ResponseEntity<Student> createStudents(@RequestBody Student student) {
         try {
             Student _student = studentRepository
                     .save(student);
@@ -65,16 +66,18 @@ public class StudentsController {
     }
 
     //	Update Student
-    @PutMapping("/users/{id}")
-    public ResponseEntity<Student> updateUser(@PathVariable("id") long id, @RequestBody Student student) {
-        Optional<Student> userData = studentRepository.findById(id);
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable("id") long id, @RequestBody Student student) {
+        Optional<Student> studentsData = studentRepository.findById(id);
 
-        if (userData.isPresent()) {
-            Student _student = userData.get();
+        if (studentsData.isPresent()) {
+            Student _student = studentsData.get();
             _student.setFullName(student.getFullName());
             _student.setEmail(student.getEmail());
             _student.setPhone(student.getPhone());
             _student.setDob(student.getDob());
+            _student.setSubject_learning_id(student.getSubject_learning_id());
+            _student.setDept_id(student.getDept_id());
             return new ResponseEntity<>(studentRepository.save(_student), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -82,8 +85,8 @@ public class StudentsController {
     }
 
     // Delete Student
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<HttpStatus> deleteStudents(@PathVariable("id") long id) {
         try {
             studentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -93,8 +96,8 @@ public class StudentsController {
     }
 
     // Delete All Student
-    @DeleteMapping("/users")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
+    @DeleteMapping("/students")
+    public ResponseEntity<HttpStatus> deleteAllStudents() {
         try {
             studentRepository.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

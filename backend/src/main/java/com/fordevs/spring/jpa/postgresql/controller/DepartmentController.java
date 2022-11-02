@@ -2,7 +2,6 @@ package com.fordevs.spring.jpa.postgresql.controller;
 
 import com.fordevs.spring.jpa.postgresql.model.Department;
 import com.fordevs.spring.jpa.postgresql.repository.DepartmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +15,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class DepartmentController {
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
+
+    public DepartmentController(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
     @GetMapping("/departments")
     public ResponseEntity<List<Department>> getDepartments(@RequestParam(required = false) String deptName) {
         try {
-            List<Department> departments = new ArrayList<Department>();
+            List<Department> departments = new ArrayList<>();
 
             if (deptName == null)
                 departments.addAll(departmentRepository.findAll());
@@ -62,7 +64,7 @@ public class DepartmentController {
 
     //	Update Department
     @PutMapping("/departments/{id}")
-    public ResponseEntity<Department> updateDepartmets(@PathVariable("id") long id, @RequestBody Department departments) {
+    public ResponseEntity<Department> updateDepartments(@PathVariable("id") long id, @RequestBody Department departments) {
         Optional<Department> deptData = departmentRepository.findById(id);
 
         if (deptData.isPresent()) {
