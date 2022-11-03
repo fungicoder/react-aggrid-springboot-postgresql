@@ -1,8 +1,10 @@
 package com.fordevs.spring.jpa.postgresql.repository;
 
-import com.fordevs.spring.jpa.postgresql.model.SubjectLearnig;
+import com.fordevs.spring.jpa.postgresql.model.SubjectLearning;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SubjectLearningRepository extends JpaRepository<SubjectLearnig, Long> {
+import java.util.List;
 
+public interface SubjectLearningRepository extends JpaRepository<SubjectLearning, Long> {
+    List<SubjectLearning> findBySubjectLearningNameContaining(String subjectLearningName);
 }

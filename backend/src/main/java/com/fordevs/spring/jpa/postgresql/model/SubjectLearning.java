@@ -12,22 +12,22 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectLearnig {
+public class SubjectLearning {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long subject_learning_id;
 
     @Column(name = "subject_learning_name")
-    private String subject_learning_name;
+    private String subjectLearningName;
 
     // @Column(name = "")
-    private Long student_id;
+    //private Long student_id;
 
     @Column(name = "marks_obtained")
-    private String marks_obtained;
+    private String marksObtained;
 
-    @ManyToMany(mappedBy = "student_id")
+    @ManyToMany//(mappedBy = "student_id")
     private List<Student> student;
 
 }
