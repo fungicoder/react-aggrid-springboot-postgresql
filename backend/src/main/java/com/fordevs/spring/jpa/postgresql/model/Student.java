@@ -48,5 +48,15 @@ public class Student {
 	@ManyToMany // (mappedBy = "students" )
 	@JoinColumn(name = "subject_learning_id")
 	private List<SubjectLearning> subjectLearning = new ArrayList<>();
+    @ManyToOne(optional = false)
+    private Department departments;
+
+    public Department getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Department departments) {
+        this.departments = departments;
+    }
 }
 

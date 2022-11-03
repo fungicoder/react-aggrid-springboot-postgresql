@@ -20,6 +20,6 @@ public class Department {
     @Column(name = "dept_name")
     private String deptName;
 
-    @OneToMany(mappedBy = "student_id")
+    @OneToMany(mappedBy = "departments")
     private List<Student> students;
 }
